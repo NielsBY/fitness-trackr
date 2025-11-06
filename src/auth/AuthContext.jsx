@@ -6,7 +6,7 @@
 
 import { createContext, useContext, useState } from "react";
 
-import { API } from "../api/ApiContext";
+const API = import.meta.env.VITE_API;
 
 const AuthContext = createContext();
 
@@ -35,7 +35,7 @@ export function AuthProvider({ children }) {
       body: JSON.stringify(credentials),
     });
     const result = await response.json();
-    if (!response.ok) throw result;
+    if (!response.ok) throw Error(result.message);
     setToken(result.token);
   };
 
